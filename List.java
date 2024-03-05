@@ -30,10 +30,10 @@ public class List {
     /** GIVE Adds a CharData object with the given character to the beginning of this list. */
     public void addFirst(char chr) {
         // Your code goes here
-        CharData addchar = new CharData(chr);
-        Node newNode = new Node(addchar, first);
-        this.first = newNode; //take the new node of chardata element and make it first
-        size++; //because we add one
+        CharData add = new CharData(chr);
+        Node newNode = new Node(add, first);
+        this.first = newNode; 
+        size = size + 1;
 
     }
     
@@ -45,14 +45,14 @@ public class List {
             String output = "()";
             return output;
         }
-        String resultS = "(";
+        String St = "(";
         Node current = first;
         while ( current != null)
         {
-            resultS += current.toString() + " ";
+            St = St + current.toString() + " ";
             current = current.next;
         }
-        resultS = resultS.substring(0, resultS.length()-1); //remove the last unnecessary " ";
+        St = St.substring(0, St.length()-1); 
         return resultS + ")";
     }
 
@@ -65,12 +65,12 @@ public class List {
         Node currect = first;
         while (currect != null)
         {
-            if(currect.cp.chr == chr) //check if they have the same char
+            if(currect.cp.chr == chr) 
             {
                 return index;
             }
             currect = currect.next;
-            index++;
+            index = index + 1;
         }
         return -1;
     }
@@ -80,24 +80,24 @@ public class List {
      *  given chr to the beginning of this list. */
     public void update(char chr) {
         // Your code goes here
-        if (first == null) //so the list is empty so we add the char at the begining
+        if (first == null) 
         {
             addFirst(chr);
             return;
         }
         Node currect = first;
-        if (indexOf(chr) == -1) //the char is not exist in the list so we need to add
+        if (indexOf(chr) == -1) 
         {
             addFirst(chr);
             return;
         }
-        if(indexOf(chr) != -1) //the char is exist so we need to add 1 to the char count in "CharData"
+        if(indexOf(chr) != -1) 
         {
-            for( int i =0; i< indexOf(chr); i++) //move until we get to the char we want
+            for( int i = 0; i< indexOf(chr); i++) 
             {
                 currect=currect.next;
             }
-            currect.cp.count++; //add one to the count char in "CharData"
+            currect.cp.count= currect.cp.count + 1; 
         }
     }
 
@@ -110,19 +110,19 @@ public class List {
         {
             return false;
         }
-        Node prev = null;
+        Node previous = null;
         Node currect = first;
         while(currect != null && currect.cp.chr != chr)
         {
-            prev = currect;
+            previous = currect;
             currect= currect.next;
         }
-        if (prev == null)
+        if (previous == null)
         {
             return false;
         }
-        prev.next = currect.next; //so we remove the currect element
-        size--;
+        previous.next = currect.next; 
+        size = size - 1;
         return true;
     }
 
@@ -156,17 +156,14 @@ public class List {
     }
 
     /** Returns an iterator over the elements in this list, starting at the given index. */
-    public ListIterator listIterator(int index) {
-	    // If the list is empty, there is nothing to iterate   
+    public ListIterator listIterator(int index) {   
 	    if (size == 0) return null;
-	    // Gets the element in position index of this list
 	    Node current = first;
 	    int i = 0;
         while (i < index) {
             current = current.next;
             i++;
         }
-        // Returns an iterator that starts in that element
 	    return new ListIterator(current);
     }
 }
