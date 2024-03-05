@@ -30,10 +30,11 @@ public class List {
     /** GIVE Adds a CharData object with the given character to the beginning of this list. */
     public void addFirst(char chr) {
         // Your code goes here
-        CharData add = new CharData(chr);
-        Node newNode = new Node(add, first);
+        CharData addchar = new CharData(chr);
+        Node newNode = new Node(addchar, first);
         this.first = newNode; 
-        size = size + 1;
+        size++; 
+
     }
     
     /** GIVE Textual representation of this list. */
@@ -64,12 +65,12 @@ public class List {
         Node currect = first;
         while (currect != null)
         {
-            if(currect.cp.chr == chr) //check if they have the same char
+            if(currect.cp.chr == chr) 
             {
                 return index;
             }
             currect = currect.next;
-            index++;
+            index = index + 1;
         }
         return -1;
     }
@@ -109,19 +110,19 @@ public class List {
         {
             return false;
         }
-        Node prev = null;
+        Node previous = null;
         Node currect = first;
         while(currect != null && currect.cp.chr != chr)
         {
-            prev = currect;
+            previous = currect;
             currect= currect.next;
         }
-        if (prev == null)
+        if (previous == null)
         {
             return false;
         }
-        prev.next = currect.next; 
-        size--;
+        previous.next = currect.next; 
+        size = size - 1;
         return true;
     }
 
@@ -135,7 +136,7 @@ public class List {
             throw new IndexOutOfBoundsException();
         }
         Node currect = first;
-        for ( int i = 0; i <index ; i++)
+        for ( int i = 0; i < index ; i++)
         {
             currect= currect.next;
         }
