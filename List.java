@@ -32,8 +32,8 @@ public class List {
         // Your code goes here
         CharData addchar = new CharData(chr);
         Node newNode = new Node(addchar, first);
-        this.first = newNode; 
-        size++; 
+        this.first = newNode; //take the new node of chardata element and make it first
+        size++; //because we add one
 
     }
     
@@ -45,15 +45,15 @@ public class List {
             String output = "()";
             return output;
         }
-        String St = "(";
+        String resultS = "(";
         Node current = first;
         while ( current != null)
         {
-            St += current.toString() + " ";
+            resultS += current.toString() + " ";
             current = current.next;
         }
-        St = St.substring(0, St.length()-1); 
-        return St + ")";
+        resultS = resultS.substring(0, resultS.length()-1); //remove the last unnecessary " ";
+        return resultS + ")";
     }
 
     /** Returns the index of the first CharData object in this list
@@ -65,12 +65,12 @@ public class List {
         Node currect = first;
         while (currect != null)
         {
-            if(currect.cp.chr == chr) 
+            if(currect.cp.chr == chr) //check if they have the same char
             {
                 return index;
             }
             currect = currect.next;
-            index = index + 1;
+            index++;
         }
         return -1;
     }
@@ -80,24 +80,24 @@ public class List {
      *  given chr to the beginning of this list. */
     public void update(char chr) {
         // Your code goes here
-        if (first == null) 
+        if (first == null) //so the list is empty so we add the char at the begining
         {
             addFirst(chr);
             return;
         }
         Node currect = first;
-        if (indexOf(chr) == -1) 
+        if (indexOf(chr) == -1) //the char is not exist in the list so we need to add
         {
             addFirst(chr);
             return;
         }
-        if(indexOf(chr) != -1) 
+        if(indexOf(chr) != -1) //the char is exist so we need to add 1 to the char count in "CharData"
         {
-            for( int i =0; i< indexOf(chr); i++) 
+            for( int i =0; i< indexOf(chr); i++) //move until we get to the char we want
             {
                 currect=currect.next;
             }
-            currect.cp.count++; 
+            currect.cp.count++; //add one to the count char in "CharData"
         }
     }
 
@@ -110,19 +110,19 @@ public class List {
         {
             return false;
         }
-        Node previous = null;
+        Node prev = null;
         Node currect = first;
         while(currect != null && currect.cp.chr != chr)
         {
-            previous = currect;
+            prev = currect;
             currect= currect.next;
         }
-        if (previous == null)
+        if (prev == null)
         {
             return false;
         }
-        previous.next = currect.next; 
-        size = size - 1;
+        prev.next = currect.next; //so we remove the currect element
+        size--;
         return true;
     }
 
@@ -136,7 +136,7 @@ public class List {
             throw new IndexOutOfBoundsException();
         }
         Node currect = first;
-        for ( int i = 0; i < index ; i++)
+        for ( int i = 0; i <index ; i++)
         {
             currect= currect.next;
         }
