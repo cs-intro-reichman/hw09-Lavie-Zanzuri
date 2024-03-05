@@ -72,7 +72,7 @@ public class LanguageModel {
         for(int i = 0; i < probs.getSize(); i++)
         {
             CharData temp = probs.get(i);
-            charsum = charsum + temp.count;
+            sum = sum + temp.count;
         }
         for(int j=0 ; j < probs.getSize(); j++)
         {
