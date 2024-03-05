@@ -53,7 +53,7 @@ public class List {
             current = current.next;
         }
         St = St.substring(0, St.length()-1); 
-        return resultS + ")";
+        return St + ")";
     }
 
     /** Returns the index of the first CharData object in this list
@@ -97,7 +97,7 @@ public class List {
             {
                 currect=currect.next;
             }
-            currect.cp.count= currect.cp.count + 1; 
+            currect.cp.count = currect.cp.count + 1; 
         }
     }
 
@@ -145,14 +145,14 @@ public class List {
 
     /** Returns an array of CharData objects, containing all the CharData objects in this list. */
     public CharData[] toArray() {
-	    CharData[] arr = new CharData[size];
+	    CharData[] array = new CharData[size];
 	    Node current = first;
 	    int i = 0;
         while (current != null) {
-    	    arr[i++]  = current.cp;
+    	    array[i++]  = current.cp;
     	    current = current.next;
         }
-        return arr;
+        return array;
     }
 
     /** Returns an iterator over the elements in this list, starting at the given index. */
