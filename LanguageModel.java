@@ -42,19 +42,19 @@ public class LanguageModel {
         }
         while (!file.isEmpty()) 
         {
-         char tempc = file.readChar();
+         char temp = file.readChar();
          List x = CharDataMap.get(window);
          if (x == null)
          {
             x = new List();
             CharDataMap.put(window, x);
          }
-        x.update(tempc); //add the tempc to the list or update the count
-        window = window.substring(1) + (tempc); // we cut the beginning and than add the char - this is the new window
+        x.update(temp); 
+        window = window.substring(1) + (temp); 
          
 
         }
-        for ( List probs : CharDataMap.values()) //for each value in the CharDataMap we calculate the p and cp of the list
+        for ( List probs : CharDataMap.values()) 
         {
             calculateProbabilities(probs);
         }
@@ -67,21 +67,19 @@ public class LanguageModel {
 	// characters in the given list. */
 	public void calculateProbabilities(List probs) {				
 		// Your code goes here
-        int charsum =0;
-        double cphelper = 0;
-        //take the list and sum up how many chars we have in order to calculate p and cp
+        int sum =0;
+        double helper = 0;
         for(int i = 0; i < probs.getSize(); i++)
         {
             CharData temp = probs.get(i);
             charsum = charsum + temp.count;
         }
-        //calculate p and cp
         for(int j=0 ; j < probs.getSize(); j++)
         {
             CharData temp = probs.get(j);
-            temp.p = (double) temp.count / charsum; //put the p value of each char by taking the count of exist and divison of total numchars
-            temp.cp = (double) (cphelper + temp.p);
-            cphelper = cphelper + temp.p;
+            temp.p = (double) temp.count / sum; 
+            temp.cp = (double) (helper + temp.p);
+            helper = helper + temp.p;
         }
 	}
 
@@ -97,7 +95,7 @@ public class LanguageModel {
                 return probs.get(i).chr;
             }
         }
-        return probs.get(probs.getSize()-1).chr; //in ideal world this command will never happened
+        return probs.get(probs.getSize()-1).chr; 
 	}
     
 
@@ -116,22 +114,20 @@ public class LanguageModel {
         {
             return initialText;
         }
-        String window = initialText.substring(initialText.length()- windowLength); //make the window
+        String window = initialText.substring(initialText.length()- windowLength); 
         String generated = window;
         while (generated.length() < (textLength + windowLength))
         {
             List probList = CharDataMap.get(window);
-            if(probList == null) // if the 
+            if(probList == null) 
             {
                 return initialText;
             }
-            char tempRandomChar = getRandomChar(probList); //get the random char that depend of p 
-            generated = generated + tempRandomChar; //add the random char to the result we want
-            window += tempRandomChar; //add one char to window
-            window = window.substring(1); //remove the first char so we just move the window one step forward
+            char temp = getRandomChar(probList);  
+            generated = generated + temp;
+            window += temp; 
+            window = window.substring(1); 
         }
-
-
         return generated;
 	}
 
@@ -153,34 +149,19 @@ public class LanguageModel {
         int generatedTextLength = Integer.parseInt(args[2]);
         Boolean randomGeneration = args[3].equals("random");
         String filename = args[4];
-
         LanguageModel lm;
         if (randomGeneration)
         {
-            lm =new LanguageModel(windowLength);
+            lm = new LanguageModel(windowLength);
         }
         else
         {
             lm = new LanguageModel(windowLength, 20);
         
         }
-
         lm.train(filename);
         System.out.println(lm.generate(intialText, generatedTextLength));
     }
 
 
-        /* 
-        String test = " eettimmoc";
-        List tlist = new List();
-        for(int i = 0; i < test.length(); i++)
-        {
-            tlist.update(test.charAt(i));
-        }
-        LanguageModel a = new LanguageModel(0);
-        a.calculateProbabilities(tlist);
-        System.out.println(a);
-
-    }
-    */
-}
+    
