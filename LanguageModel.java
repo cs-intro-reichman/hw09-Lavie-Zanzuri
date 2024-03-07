@@ -49,10 +49,8 @@ public class LanguageModel {
             y = new List();
             CharDataMap.put(window, y);
          }
-        x.update(temp); 
+        y.update(temp); 
         window = window.substring(1) + (temp); 
-         
-
         }
         for ( List probs : CharDataMap.values()) 
         {
