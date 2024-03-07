@@ -65,19 +65,19 @@ public class LanguageModel {
 	// characters in the given list. */
 	public void calculateProbabilities(List probs) {				
 		// Your code goes here
-        int charsum =0;
-        double cphelper = 0;
+        int sum =0;
+        double help = 0;
         for(int i = 0; i < probs.getSize(); i++)
         {
             CharData temp = probs.get(i);
-            charsum = charsum + temp.count;
+            sum = sum + temp.count;
         }
         for(int j=0 ; j < probs.getSize(); j++)
         {
             CharData temp = probs.get(j);
-            temp.p = (double) temp.count / charsum; 
-            temp.cp = (double) (cphelper + temp.p);
-            cphelper = cphelper + temp.p;
+            temp.p = (double) temp.count / sum; 
+            temp.cp = (double) (help + temp.p);
+            help = help + temp.p;
         }
 	}
 
