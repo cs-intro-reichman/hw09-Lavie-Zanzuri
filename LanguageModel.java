@@ -42,15 +42,15 @@ public class LanguageModel {
         }
         while (!file.isEmpty()) 
         {
-         char temp = file.readChar();
+         char tempc = file.readChar();
          List x = CharDataMap.get(window);
          if (x == null)
          {
             x = new List();
             CharDataMap.put(window, x);
          }
-        x.update(temp); 
-        window = window.substring(1) + (temp); 
+        x.update(tempc); 
+        window = window.substring(1) + (tempc); 
          
 
         }
@@ -67,19 +67,19 @@ public class LanguageModel {
 	// characters in the given list. */
 	public void calculateProbabilities(List probs) {				
 		// Your code goes here
-        int sum =0;
-        double helper = 0;
+        int charsum =0;
+        double cphelper = 0;
         for(int i = 0; i < probs.getSize(); i++)
         {
             CharData temp = probs.get(i);
-            sum = sum + temp.count;
+            charsum = charsum + temp.count;
         }
         for(int j=0 ; j < probs.getSize(); j++)
         {
             CharData temp = probs.get(j);
-            temp.p = (double) temp.count / sum; 
-            temp.cp = (double) (helper + temp.p);
-            helper = helper + temp.p;
+            temp.p = (double) temp.count / charsum; 
+            temp.cp = (double) (cphelper + temp.p);
+            cphelper = cphelper + temp.p;
         }
 	}
 
@@ -119,15 +119,17 @@ public class LanguageModel {
         while (generated.length() < (textLength + windowLength))
         {
             List probList = CharDataMap.get(window);
-            if(probList == null) 
+            if(probList == null) // if the 
             {
                 return initialText;
             }
-            char temp = getRandomChar(probList);  
-            generated = generated + temp;
-            window += temp; 
+            char tempRandomChar = getRandomChar(probList); 
+            generated = generated + tempRandomChar; 
+            window += tempRandomChar; 
             window = window.substring(1); 
         }
+
+
         return generated;
 	}
 
@@ -149,19 +151,19 @@ public class LanguageModel {
         int generatedTextLength = Integer.parseInt(args[2]);
         Boolean randomGeneration = args[3].equals("random");
         String filename = args[4];
+
         LanguageModel lm;
         if (randomGeneration)
         {
-            lm = new LanguageModel(windowLength);
+            lm =new LanguageModel(windowLength);
         }
         else
         {
             lm = new LanguageModel(windowLength, 20);
         
         }
+
         lm.train(filename);
         System.out.println(lm.generate(intialText, generatedTextLength));
-    }
-
-
-    
+    }  
+}
