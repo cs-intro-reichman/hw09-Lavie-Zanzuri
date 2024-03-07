@@ -42,15 +42,15 @@ public class LanguageModel {
         }
         while (!file.isEmpty()) 
         {
-         char tempc = file.readChar();
-         List x = CharDataMap.get(window);
-         if (x == null)
+         char temp = file.readChar();
+         List y = CharDataMap.get(window);
+         if (y == null)
          {
-            x = new List();
-            CharDataMap.put(window, x);
+            y = new List();
+            CharDataMap.put(window, y);
          }
-        x.update(tempc); 
-        window = window.substring(1) + (tempc); 
+        x.update(temp); 
+        window = window.substring(1) + (temp); 
          
 
         }
